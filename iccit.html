@@ -1,0 +1,1091 @@
+<HTML>
+<Head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		body{
+			max-width: 1200px;
+			margin:auto;
+			font-family: sans-serif;
+
+		}
+
+		h1{
+			font-size: 22px;
+			color: white;
+			text-align: center;
+			margin: 0;
+			padding-top: 30px;
+			padding-bottom: 30px;
+		}
+
+		h2{
+			font-size: 24px;
+			text-align: center;
+			margin-top: 0;
+			padding-bottom: 30px;
+			line-height: 20%;
+			text-transform: uppercase;
+		}
+
+		h3{
+			font-size: 18px;
+			text-align: center;
+			margin: auto;
+		}
+
+		h4{
+		  font-size: 14px;
+		  margin: auto;
+		}
+
+		h4 .coursetitle{
+		  text-align:center;
+		}
+
+		h5{
+		  font-size: 14px;
+		  text-align:center;
+		  margin: auto;
+		  letter-spacing: 2px;
+		}
+
+		p{
+			font-size: 16px;
+		}
+
+		p.small{
+			font-size: 12px;
+			line-height: 14px;
+			padding-left: 2px;
+			padding-right: 2px;
+			text-align: center;
+		}
+
+		.title{
+		  background-color: #091830;	
+		}
+
+		.card{
+			/* padding: 10px; */
+			position: relative;
+			border-radius: 25px;
+		}
+
+		.card-content{
+		  text-align: center;
+		  justify-content: center;
+		  margin: auto;
+		  position: absolute;
+		  top: 25;
+		  right: 0;
+		  left: 0;
+		  word-wrap: break-word;
+		  line-height: 20px;
+		  width: 120px;
+		}
+
+		.card-footer{
+			padding: 2px 16px;
+			background-color: #091830;
+			color: white;
+		  border-bottom-left-radius: 17px;
+		  border-bottom-right-radius: 17px;
+		  position:absolute;
+		  bottom: 0;
+		  width: 118px;
+		  line-height: 40px;
+		}
+
+		.requiredFilter, 
+		.courseFilter,
+		.yearFilter{
+			/*display: flex;*/
+		}
+
+		.year1{
+		  background-color: #f2f2f2;
+		}
+
+		.year2{
+		  background-color: #d9d9d9;
+		}
+
+		.year3{
+		  background-color: #bfbfbf;
+		}
+
+		.year4{
+		  background-color: #a6a6a6;
+		}
+
+		.year1,
+		.year2,
+		.year3,
+		.year4{
+			padding: 80px;
+		}
+
+		.flex-container {
+		  display: flex;
+		  flex-wrap: wrap;
+		  justify-content: center;
+		}
+
+		.flex-container > div{
+		  width: 150px;
+		  height: 150px;
+		  margin: 10px;
+		  text-align: center;
+		  line-height: 50px;
+		  font-family: sans-serif;
+		}
+
+		.theory{
+			background-color: #53c1ed;
+		}
+
+		.research{
+			background-color: #f37476;
+		}
+
+		.practical{
+			background-color: #a9c038;
+		}
+
+		.integrated{
+			background-color: #febc12;
+		}
+
+		.required{
+			border: 6px solid #091830;
+		}
+
+		.optional{
+			border: 6px solid #ffffff;
+		}
+
+		.hide {
+		  display: none;
+		   border: 1px solid black;
+		}
+			
+		.myDIV:hover + .hide {
+		  display: block;
+		  color: black;
+		  background-color: white;
+		  max-width: 200px;
+		  width: 200px;
+		  height: 50px;
+		  text-align: center;
+		  position: absolute;
+		  z-index: 1;
+		}
+
+		.preq{
+		background-color: black;
+		color: white;
+		}
+
+		.modal{
+			display: none;
+			position: fixed;
+			z-index: 1;
+			left:0;
+			top:0;
+			width: 100%;
+			height: 100%;
+			overflow: auto;
+		  margin: 0 auto;
+			background-color: rgb(0,0,0);
+			background-color: rgba(0,0,0,0.4);
+		}
+
+		.modal-content{
+			background-color: #f3f3f3;
+			margin: 15% auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 80%;
+		  border-radius: 10px;
+		  max-width: 500px;
+		}
+
+		.close{
+			color: #aaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+		  color: black;
+		  text-decoration: none;
+		  cursor: pointer;
+		}
+
+
+		/* Style the accordion panel. Note: hidden by default */
+		.panel {
+		  padding: 30px 18px;
+		  background-color: white;
+		  display: none;
+		  overflow: hidden;
+		}
+
+		/* The container */
+		.container {
+		  display: inline-flex;
+		  position: relative;
+		  padding-left: 35px;
+		  margin-bottom: 12px;
+		  cursor: pointer;
+		  font-size: 22px;
+		  -webkit-user-select: none;
+		  -moz-user-select: none;
+		  -ms-user-select: none;
+		  user-select: none;
+		}
+
+		/* Hide the browser's default checkbox */
+		.container input {
+		  position: absolute;
+		  opacity: 0;
+		  cursor: pointer;
+		  height: 0;
+		  width: 0;
+		}
+
+		/* Create a custom checkbox */
+		.checkmark {
+		  position: absolute;
+		  top: 0;
+		  left: 0;
+		  height: 25px;
+		  width: 25px;
+		  background-color: #eee;
+		}
+
+		/* On mouse-over, add a grey background color */
+		.container:hover input ~ .checkmark {
+		  background-color: #ccc;
+		}
+
+		/* When the checkbox is checked, add a blue background */
+		.container input:checked ~ .checkmark {
+		  background-color: #2196F3;
+		}
+
+		/* Create the checkmark/indicator (hidden when not checked) */
+		.checkmark:after {
+		  content: "";
+		  position: absolute;
+		  display: none;
+		}
+
+		/* Show the checkmark when checked */
+		.container input:checked ~ .checkmark:after {
+		  display: block;
+		}
+
+		/* Style the checkmark/indicator */
+		.container .checkmark:after {
+		  left: 9px;
+		  top: 5px;
+		  width: 5px;
+		  height: 10px;
+		  border: solid white;
+		  border-width: 0 3px 3px 0;
+		  -webkit-transform: rotate(45deg);
+		  -ms-transform: rotate(45deg);
+		  transform: rotate(45deg);
+		}
+
+		ul{
+			list-style-type: none;
+			padding: 1rem;
+		}
+
+
+		.Legend-colorBox{
+			width: 1.5rem;
+			height: 1.5rem;
+			border-radius: 4px;
+			display: inline-block;
+		}
+
+		.Legend-label{
+			font-size: 16px;
+		}
+
+		.Legend-integrated {
+			background-color: #febc12;
+		}
+
+		.Legend-practical{
+			background-color: #a9c038;
+		}
+
+		.Legend-theory{
+			background-color: #53c1ed;
+		}
+
+		.Legend-research{
+			background-color: #f37476;
+		}
+
+		.Legend-required{
+			background-color: #cccccc;
+			border: 4px solid #091830; 
+		}
+
+		.Legend-optional{
+			background-color: #cccccc;
+			border: 4px solid white;
+		}
+
+		#filterbtn{
+		  padding: 30px;
+		  position: absolute;
+		  cursor: pointer;
+		}
+
+		#filterbtn:hover{
+		  background-color: #000000;
+		}
+
+
+		/*Tooltip*/
+		section#tooltip p {
+		  margin: 20px 0;
+		}
+
+		section#tooltip > div > div > p:nth-child(odd)::first-letter {
+		  font-weight: normal;
+		  float: left;
+		  font-size: 4em;
+		  line-height: .75;
+		  letter-spacing: .15em;
+		  margin-top: .2em;
+		}
+
+		.wrapper {
+		  max-width: 800px;
+		}
+
+		/*Tooltip text*/
+		.tooltip {
+		  position: relative;
+		}
+
+		.tooltip .tooltip-text {
+		  font-family: "Open Sans", sans-serif;
+		  /* line-height: 2em; */
+		  visibility: hidden;
+		  background-color: #000000;
+		  color: #fff;
+		  text-align: center;
+		  border-radius: 6px;
+		  border: 1px solid #fff;
+		  padding: 10px;
+		  position: absolute;
+		  z-index: 1;
+		  bottom: 100%;
+		  /* left: 50%; */
+		  margin-left: -90px;
+		  margin-bottom: 10px;
+		  width: 300px;
+		  opacity: 0;
+		  transition: .3s;
+		  transform: translate3d(0px, 20px, 0px);
+		}
+
+		.tooltip .tooltip-text::after {
+		  content: "";
+		  position: absolute;
+		  top: 100%;
+		  left: 50%;
+		  margin-left: -5px;
+		  border-width: 5px;
+		  border-style: solid;
+		  border-color: #000000 transparent transparent transparent;
+		}
+
+		.tooltip:hover .tooltip-text {
+		  visibility: visible;
+		  opacity: 1;
+		  transform: translate3d(0px, 0px, 0px);
+		}
+
+		/* filter */
+		.legendmenu {
+			font-weight: 100;
+			background: #efefef;
+			width: 150px;
+			height: 100%;
+			padding-left: 50px;
+			position: fixed;
+			z-index: 100;
+			-webkit-box-shadow: -3px 0px 5px 0px rgba(0,0,0,0.2);
+			box-shadow: -3px 0px 5px 0px rgba(0,0,0,0.2);
+			right: -150px;
+		  transition: 0.3s;
+			color: #222;
+		}
+
+		.legendmenu:hover, .legendmenu:focus{
+				transform: translate3d(-150px, 0, 0);
+				animation-timing-function: 1s ease-in;
+			}
+
+		.legendmenu .legendtitle{
+				top:50%;
+				position: absolute;
+				transform: rotate(270deg);
+				left: -4px;
+				font-weight: 800;
+				font-size: 15px;
+			}
+
+		.legendnav{
+				position: absolute;
+			font-weight: 100;
+		  }
+
+		.filter{
+		  padding-top: 50%;
+		}
+
+		.types,
+		.years{
+		  padding: 15px 0 15px 0;
+		}
+
+		li{
+				padding-bottom: 30px;
+				list-style-type: none;
+		}
+
+		a
+			{
+				display: block;
+				text-decoration: none;
+				color: inherit;
+				transition: 0.3s;
+		  }
+
+		a:hover{
+				color: #aaa;
+		}
+
+		h2, .team-name{
+		  text-align:center;
+		}
+	</style>
+</head>
+<Body>
+	<div class="legendmenu">
+		<div class="legendtitle">FILTER</div>
+		<!-- Filter sidebar -->
+		<div class="filter">
+			<p><b>Filter courses:</b></p>
+			<h4>Course options</h4>
+			<div class="types">
+				<div class="checkbox">
+					<label><input type="checkbox" rel="requiredCourse" onchange="change();"/>Required</label>
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" rel="optionalCourse" onchange="change();"/>Optional</label>
+				</div>    
+			</div>
+			<h4>Course types</h4>
+			<div class="types">
+				<div class="checkbox">
+					<label><input type="checkbox" rel="theoryCourse" onchange="change();"/>Theory</label>
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" rel="researchCourse" onchange="change();"/>Research</label>
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" rel="practicalCourse" onchange="change();"/>Practical</label>
+				</div>
+				<div class="checkbox">
+					<label><input type="checkbox" rel="integratedCourse" onchange="change();"/>Integrated</label>
+				</div>      
+			</div>
+			<h4>Course years</h4>
+			<div class="years">
+			<div class="checkbox">
+				<label><input type="checkbox" rel="y1Course" onchange="change();"/>1</label>
+			</div>
+			<div class="checkbox">
+				<label><input type="checkbox" rel="y2Course" onchange="change();"/>2</label>
+			</div>
+			<div class="checkbox">
+				<label><input type="checkbox" rel="y3Course" onchange="change();"/>3</label>
+			</div>
+			<div class="checkbox">
+				<label><input type="checkbox" rel="y4Course" onchange="change();"/>4</label>
+			</div>
+			</div>
+		</div>
+		<div>
+			<input type="button" id="UncheckAll" value="UncheckAll" />
+			<!-- <input type="button" id="CheckAll" value="CheckAll" /> -->
+		</div>
+		<div>
+			<button onClick="history.go(0);">Reset</button>
+		</div>
+
+	</div>
+
+	<section class="title">
+		<svg id="filterbtn" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#ffffff"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+		<h1>ICCIT: Technology Coding and Society Curriculum Map</h1>
+		<!-- Filter modal begins -->
+		<div id="filtercourses" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<div>
+					<p><b>Legend</b></p>
+				</div>
+				<ul>
+						<li class="Legend-item">
+						  <span class="Legend-colorBox Legend-integrated">
+						  </span>
+						  <span class="Legend-label">
+						   Integrated Theory & Practice
+						  </span>
+						</li>
+						<li class="Legend-item">
+						  <span class="Legend-colorBox Legend-practical">
+						  </span>
+						  <span class="Legend-label">
+						   Practical Application / Coding Literacy
+						  </span>
+						</li>
+						<li class="Legend-item">
+						  <span class="Legend-colorBox Legend-theory">
+						  </span>
+						  <span class="Legend-label">
+							Theory
+						  </span>
+						</li>
+						<li class="Legend-item">
+						  <span class="Legend-colorBox Legend-research">
+						  </span>
+						  <span class="Legend-label">
+							Research & Methodologies
+						  </span>
+						</li>
+						<li class="Legend-item">
+						  <span class="Legend-colorBox Legend-required tooltip">
+						  </span>
+						  <span class="Legend-label">
+							Required tooltip Courses
+						  </span>
+						</li>
+						<li class="Legend-item">
+						  <span class="Legend-colorBox Legend-optional tooltip">
+						  </span>
+						  <span class="Legend-label">
+							Optional tooltip Course
+						  </span>
+						</li>
+				</ul>						
+			</div>
+		</div>
+	</section>
+	</section>
+		<section class="year1">
+		<h2>Year 1</h2>
+			<div class="flex-container result">
+				<div class="card theory theoryCourse requiredCourse y1Course Required tooltip">
+					<div class="card-content theoryCourse requiredCourse y1Course">
+						<h4 class="coursetitle">Contemporary Communication Techniques</h4>
+					</div>
+					<div class="card-footer theoryCourse requiredCourse y1Course">
+						<h5 class="coursecode">CCT109H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						This course examines different information and communication technologies (ICTs) through the analysis of such genres as contemporary written, visual, oral, electronic and musical forms. It illustrates a range of theoretical perspectives that seek to explain the relationship between communication and technology. This course will also examine, briefly, the history of ICTs. [24L, 11P]
+					</p>
+				</div>
+				<div class="card integrated integratedCourse requiredCourse y1Course Required tooltip">
+					<div class="card-content integratedCourse requiredCourse y1Course">
+						<h4 class="coursetitle">Rhetoric & Media</h4>
+					</div>
+					<div class="card-footer integratedCourse requiredCourse y1Course">
+						<h5 class="coursecode">CCT110H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						This course critically examines the written, visual, aural, and dynamic rhetoric as it pertains to communications for academic and other purposes across a range of digital and interactive media discourses. [24L, 11T]
+					</p>
+				</div>
+				<div class="card practical practicalCourse requiredCourse y1Course Required tooltip">
+					<div class="card-content practicalCourse requiredCourse y1Course">
+						<h4 class="coursetitle">Critical Coding</h4>
+					</div>
+					<div class="card-footer practicalCourse requiredCourse y1Course">
+						<h5 class="coursecode">CCT111H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						This experiential learning course introduces students to the practice and theory of coding, programming, and basic development of user-oriented software. The lectures illustrate a core range of software development concepts that provide the foundations needed for the practical coding of front-end applications such as mobile interfaces or of back-end software such as introductory artificial intelligence or social media analysis. The practicals are lab-based and focus on applying these theoretical skills to solving problems grounded in a critical understanding of the interaction between people, culture, and society, by developing software or apps in languages such as Java, Objective C, Swift, Python. [24L, 12P]
+					</p>
+				</div>
+			</div>
+		</section>
+		<section class="year2">
+		<h2>Year 2</h2>
+			<div class="flex-container result">
+				<div class="card theory theoryCourse optionalCourse y2Course Optional tooltip">
+					<div class="card-content theoryCourse optionalCourse y2Course">
+						<h4 class="coursetitle">Human Machine Communication</h4>
+					</div>
+					<div class="card-footer theoryCourse optionalCourse y2Course">
+						<h5 class="coursecode">CCT202H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110
+						<br>
+						<br>
+						From voice responsive cars and virtual assistants to social robots and smart toys, people are increasingly interacting with communicative technologies in their daily lives. In this course students will consider the implications of this evolution in communication practice – informing design, ethics, efficacy, privacy, and other implications. Human-machine communication is a specific area of study within communication encompassing human-computer interaction, human-robot interaction, and human-agent interaction.[24L]
+					</p>
+				</div> 
+				<div class="card integrated integratedCourse requiredCourse y2Course Required tooltip">				
+					<div class="card-content integratedCourse requiredCourse y2Course">
+						<h4 class="coursetitle">Digital Innovation & Cultural Transformation</h4>
+					</div>
+					<div class="card-footer integratedCourse requiredCourse y2Course">
+						<h5 class="coursecode">CCT205H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110
+						<br>
+						<br>
+						An examination of the problems caused by the introduction of digital and computing technologies to modern culture. Topics range from the social and cultural outcomes of media convergence; effects of the digital revolution in communications technologies; the impact of miniaturization on the application of computing technologies; the relevance of virtual environments; the interplay between pre-industrial, industrial and information cultures. [24L, 12T]
+					</p>
+				</div>
+				<div class="card research researchCourse requiredCourse y2Course Required tooltip">
+					<div class="card-content researchCourse requiredCourse y2Course">
+						<h4 class="coursetitle">Communications Research Methods</h4>
+					</div>
+					<div class="card-footer researchCourse requiredCourse y2Course">
+						<h5 class="coursecode">CCT208H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110
+						<br>
+						<br>
+						An examination of the problems caused by the introduction of digital and computing technologies to modern culture. Topics range from the social and cultural outcomes of media convergence; effects of the digital revolution in communications technologies; the impact of miniaturization on the application of computing technologies; the relevance of virtual environments; the interplay between pre-industrial, industrial and information cultures. [24L, 12T]
+						<br>
+						<br>
+						Exclusion: CCT203H5
+					</p>
+				</div>
+				<div class="card practical practicalCourse requiredCourse y2Course Required tooltip">
+					<div class="card-content practicalCourse requiredCourse y2Course">
+						<h4 class="coursetitle">Fundamentals of the User Interface</h4>
+					</div>
+					<div class="card-footer practicalCourse requiredCourse y2Course">
+						<h5 class="coursecode">CCT211H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110, 111
+						<br>
+						<br>
+						This experiential learning course introduces students to the practice and theory of coding, programming, and development of user interfaces. The lectures illustrate an advanced range of software development concepts needed for the practical coding of user interfaces across a variety of devices. The practicals are lab-based and focus on applying these theoretical skills to design, implementation, and testing of user interface software components. Students will have the opportunity to acquire project management and software engineering skills Scrum, Agile), programming languages (Java, Javascript, Objective C, Swift, and other mobile and web programming languages), and evaluation methodologies (unit testing, bug tracking). [24L, 12P]						
+					</p>
+				</div>
+				<div class="card theory theoryCourse requiredCourse y2Course Required tooltip">
+					<div class="card-content theoryCourse requiredCourse y2Course">
+						<h4 class="coursetitle">Hacker Culture</h4>
+					</div>
+					<div class="card-footer theoryCourse requiredCourse y2Course">
+						<h5 class="coursecode">CCT212H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110
+						<br>
+						By subverting and re-appropriating technologies, hackers influence both the evolution of computing and the politics of digital media. Hacking contributes to shaping the future of entrepreneurship, free speech, surveillance, and intellectual property. The course will examine the cultural, social, and legal facets of hacking in fields ranging from software production to political activism and the hacker underground. It will be based on social science research on hackers as well as concrete examples of data re-appropriation and technology modification. [24L]
+					</p>
+				</div>
+				<div class="card theory theoryCourse optionalCourse y2Course Optional tooltip">
+					<div class="card-content theoryCourse optionalCourse y2Course">
+						<h4 class="coursetitle">Digital Marketing 1</h4>
+					</div>
+					<div class="card-footer theoryCourse optionalCourse y2Course">
+						<h5 class="coursecode">CCT221H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110
+						<br>
+						<br>
+						Techniques for developing a comprehensive marketing strategy will be developed with particular emphasis on digital products and services. The nature of digital markets, approaches to advertising, pricing and such areas as versioning will also be discussed. [24L]
+						<br>
+						<br>
+						Exclusion: MGT252H5 or MGT352H5
+					</p>
+				</div>
+				<div class="card research researchCourse optionalCourse y2Course Optional tooltip">
+					<div class="card-content researchCourse optionalCourse y2Course">
+						<h4 class="coursetitle">Data Analysis 1</h4>
+					</div>
+					<div class="card-footer researchCourse optionalCourse y2Course">
+						<h5 class="coursecode">CCT226H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110
+						<br>
+						<br>
+						This course introduces students to the basic tools of data analysis, most particularly statistics and modeling that are critical for subsequent courses in Marketing and Data Analysis II. Students are introduced to basic principles of descriptive and inferential statistics with a focus on the types of data that they will typically encounter in a digital environment. [24L, 12P]
+					</p>
+				</div>
+				<div class="card practical practicalCourse requiredCourse y2Course Required tooltip">
+					<div class="card-content practicalCourse requiredCourse y2Course">
+						<h4 class="coursetitle">Immersive Environment Design</h4>
+					</div>
+					<div class="card-footer practicalCourse requiredCourse y2Course">
+						<h5 class="coursecode">CCT285H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110
+						<br>
+						<br>
+						Students will develop skills in the areas of bitmap/vector graphics, audio/visual production and editing, 2D/3D modeling and animation, and video game design. Students will produce immersive environments while addressing and engaging issues of remix culture and intellectual property. [24L, 12P]
+					</p>
+				</div>
+				<div class="card practical practicalCourse requiredCourse y2Course Required tooltip">	
+					<div class="card-content practicalCourse requiredCourse y2Course">
+						<h4 class="coursetitle">Interactive Media Design</h4>
+					</div>
+					<div class="card-footer practicalCourse requiredCourse y2Course">
+						<h5 class="coursecode">CCT286H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110, 285
+						<br>
+						<br>
+						This course provides students with the opportunity to learn the skills necessary to produce responsive web content. Students will develop skills in the areas of website design, interactive and animated web content, mobile app development, and mobile game development. [36P]
+					</p>
+				</div>
+			</div>
+		</section>
+		<section class="year3">
+		<h2>Year 3</h2>
+			<div class="flex-container result">
+				<div class="card research researchCourse optionalCourse y3Course Optional tooltip">
+					<div class="card-content researchCourse optionalCourse y3Course">
+						<h4 class="coursetitle">Advanced Research Methods</h4>
+					</div>
+					<div class="card-footer researchCourse optionalCourse y3Course">
+						<h5 class="coursecode">CCT308H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						Prerequisite: 109, 110, 208
+						<br>
+						<br>
+						This course provides students with an in-depth study and critical analysis of research methodologies within the discipline of communications and new media. Students will learn to explicitly identify generalizable findings, ethical concerns, study limitations, and new contributions to the field of knowledge using existing studies in qualitative, quantitative and mixed methodologies. Students will also gain experience in identifying and assessing problems within a research design and develop the ability to recommend revisions and/or new contexts and techniques for replicating the studies. [24L]
+					</p>
+				</div>
+				<div class="card theory theoryCourse requiredCourse y3Course Required tooltip">
+					<div class="card-content theoryCourse requiredCourse y3Course">
+						<h4 class="coursetitle">Communication, technology and Social Change</h4>
+					</div>
+					<div class="card-footer theoryCourse requiredCourse y3Course">
+						<h5 class="coursecode">CCT320H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						This course explores how media and media technology have shifted the nature of the existing political and social orders, We will focus on how social movements and political challengers have used media to disrupt and, in many cases, overthrow leaders, corporations, and governments. This will bring us in contact with theories of social movement mobilization, political communication, and digital media. We will also explore the ways that legacy and digital media have changed to be in service of misinformation and state repression. [24L]
+					</p>
+				</div>
+				<div class="card practical practicalCourse requiredCourse y3Course Required tooltip">		
+					<div class="card-content practicalCourse requiredCourse y3Course">
+						<h4 class="coursetitle">Human Computer Interaction and Communication</h4>
+					</div>
+					<div class="card-footer practicalCourse requiredCourse y3Course">
+						<h5 class="coursecode">CCT380H5</h5>
+					</div>				
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110
+						<br>
+						<br>
+						The emphasis in this course will be on theoretical, methodological, and empirical issues in the study of Human-Computer Interaction. Intelligent interface designs, usability assessment, user modeling and the accessibility of the technology for the disabled are among the topics to be examined. Related behavioural investigations concerning the ease and efficiency of users' interactions with computerized environments will also be discussed. [36P]
+					</p>
+				</div>
+				<div class="card practical practicalCourse optionalCourse y3Course Optional tooltip">		
+					<div class="card-content practicalCourse optionalCourse y3Course">
+						<h4 class="coursetitle">Prototyping Digital Games</h4>
+					</div>
+					<div class="card-footer practicalCourse optionalCourse y3Course">
+						<h5 class="coursecode">CCT382H5</h5>
+					</div>			
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110 and 211 or 218
+						<br>
+						<br>
+						This course explores the fundamentals of the process of game design through prototyping. It focuses on the contexts and components of game design, such as design iteration and user testing along relevant dimensions such as art style, narrative, and game balance. Students will be introduced to design across different genres and types of digital games, including games for education, serious games, indie, and AAA games. Working in collaborative groups, students will learn and practice the appropriate methodology to design game mechanics, characters, art assets and other appropriate deliverables in order to create a game or high-fidelity prototype. [24L]
+					</p>
+				</div>
+				<div class="card integrated integratedCourse optionalCourse y3Course Optional tooltip">		
+					<div class="card-content integratedCourse optionalCourse y3Course">
+						<h4 class="coursetitle">The Interactive Society</h4>
+					</div>
+					<div class="card-footer integratedCourse optionalCourse y3Course">
+						<h5 class="coursecode">CCT383H5</h5>
+					</div>			
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110, and minimum of 8 completed courses
+						<br>
+						<br>
+						This course introduces students to the theoretical and practical study of how interactive digital media and systems affect, influence and reshape our society and what does it mean to be a "user" in the information-centric society. It will expose students to specific theoretical issues such as privacy by design, usable privacy, marginalized and at-risk user groups, the digital divide, behavioural modification (persuasion) through new media, ICT4D (info tech for development) and empowerment/alienation through intelligent interactive systems. Focus will be on developing skills that will enable students to propose changes (design, policy, framework) to existing and future envisioned interactive technologies that address the issues analyzed. [36P]
+					</p>
+				</div>
+			</div>
+		</section>
+		<section class="year4">
+		<h2>Year 4</h2>
+			<div class="flex-container result">
+				<div class="card integrated integratedCourse optionalCourse y4Course Optional tooltip">		
+					<div class="card-content integratedCourse optionalCourse y4Course">
+						<h4 class="coursetitle">Internship 1</h4>
+					</div>
+					<div class="card-footer integratedCourse optionalCourse y4Course">
+						<h5 class="coursecode">CCT410H5</h5>
+					</div>
+					<p class="small tooltip-text">
+						Minimum of 13 completed courses, with a 2.5 CGPA
+						<br>
+						<br>
+						This course is a practical internship and is available only upon application from students registered in the CCIT/DEM programs. Through a placement, students will apply the expertise in communication, culture, and information technology that they have gained through previous courses. Students must plan well in advance for the placement and work closely with the placement officer for CCIT to determine eligibility and suitability. A report and presentation will be required at the end of the placement. These, along with the employer's assessment, will provide the main part of the course mark. [14S]
+					</p>					
+				</div>
+				<div class="card research researchCourse optionalCourse y4Course Optional tooltip">		
+					<div class="card-content researchCourse optionalCourse y4Course">
+						<h4 class="coursetitle">Social Data Analytics</h4>
+					</div>
+					<div class="card-footer researchCourse optionalCourse y4Course">
+						<h5 class="coursecode">CCT416H5</h5>
+					</div>	
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110
+						<br>
+						<br>
+						This course highlights the research in analysis for social data and builds skills to undertake those analysis. It is a lab-intensive course intended to build up data analytic skills for novice and intermediate researchers. Students look at recent studies using "big data" which are primarily theoretical, including critiques of data analytics and concerns surrounding data ethics. Students learn a programming language -- Python -- and how to scrape social data, store and collect it, run basic statistics, generate visuals, and create a report based on a project of interest. [24P]
+					</p>		
+				</div>
+				<div class="card theory theoryCourse requiredCourse y4Course Required tooltip">			
+					<div class="card-content theoryCourse requiredCourse y4Course">
+						<h4 class="coursetitle">Ethics and Code Theory</h4>
+					</div>
+					<div class="card-footer theoryCourse requiredCourse y4Course">
+						<h5 class="coursecode">CCT432H5</h5>
+					</div>					
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110, and minimum of 13 completed courses
+						<br>
+						<br>
+						A self-driving car should always protect pedestrians, even if that implies serious threat for the vehicle's passengers. Current ethical challenges within our computational cultures has brought forward dilemmas involving code such as designing killer robots, the use of technology to predict and prevent crimes before they happen, and platform surveillance in social media. Students in this course will use theories and case based examples to examine questions such as what is meant with ethics in new media and critical computing, can we program computational systems according to ethical models, and does digital culture force us to rethink what ethics are? [24L]
+					</p>
+				</div>
+				<div class="card practical practicalCourse optionalCourse y4Course Optional tooltip">		
+					<div class="card-content practicalCourse optionalCourse y4Course">
+						<h4 class="coursetitle">User Experience Analysis</h4>
+					</div>
+					<div class="card-footer practicalCourse optionalCourse y4Course">
+						<h5 class="coursecode">CCT480H5</h5>
+					</div>				
+					<p class="small tooltip-text">
+						Prerequisites: 109, 110, 380, and minimum of 13 completed courses
+						<br>
+						<br>
+						The course investigates how people interact with interactive digital systems from an evaluation and formal testing perspective, and introduces students to the methods of User Experience Assessment and User Experience Analysis (UXA). This studio-based experiential course examines how interactive systems are implemented and deployed to meet users' needs, with a focus on formal Human Computer Interaction (HCI) evaluation methods. Students will acquire the capacity to evaluate systems and to critically assess different HCI and UX validation methods which are based on industry approaches carried out by User Research Analysis. [36P]
+					</p>
+				</div>
+				<div class="card practical practicalCourse requiredCourse y4Course Required tooltip">	
+					<div class="card-content practicalCourse requiredCourse y4Course">
+						<h4 class="coursetitle">User Experience Design</h4>
+					</div>
+					<div class="card-footer practicalCourse requiredCourse y4Course">
+						<h5 class="coursecode">CCT485H5</h5>
+					</div>	
+					<p class="small tooltip-text">
+						Prerequisite: 109, 110, 380, and minimum of 13 completed courses
+						<br>
+						<br>
+						The focus of the course is on understanding the experiences of users and their communities as affected by their interaction with digital technologies in information-centric societies. Students will learn the theoretical framework and practical aspects of advanced user-centred design principles (such as participatory design and techno-centric ethnographies). This course will represent an opportunity for students to enrich their understanding of the deep interconnections between human factors, human needs, interactive technologies, information, as projected on several dimensions: cultural, societal, ergonomic, and economic. [36P]
+					</p>		
+				</div>
+			</div>
+		</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script>
+// Get the modal
+var modal = document.getElementById("filtercourses");
+
+// Get the button that opens the modal
+var btn = document.getElementById("filterbtn");
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on the button, open the modal
+btn.onclick = function() {
+  modal.style.display = "block";
+}
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+  modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    /* Toggle between adding and removing the "active" class,
+    to highlight the button that controls the panel */
+    this.classList.toggle("active");
+
+    /* Toggle between hiding and showing the active panel */
+    var panel = this.nextElementSibling;
+    if (panel.style.display === "block") {
+      panel.style.display = "none";
+    } else {
+      panel.style.display = "block";
+    }
+  });
+}
+
+//Filter inside modal
+function change() {
+  var typesUtm = document.querySelectorAll(".types input[type='checkbox']");
+  var yearsUtm = document.querySelectorAll(".years input[type='checkbox']");
+  var optionsUtm = document.querySelectorAll(".options input[type='checkbox']");
+  var filters = {
+    types: getClassOfCheckedCheckboxes(typesUtm),
+    years: getClassOfCheckedCheckboxes(yearsUtm),
+    options: getClassOfCheckedCheckboxes(optionsUtm)
+  };
+
+  filterResults(filters);
+}
+
+function getClassOfCheckedCheckboxes(checkboxes) {
+  var classes = [];
+
+  if (checkboxes && checkboxes.length > 0) {
+    for (var i = 0; i < checkboxes.length; i++) {
+      var cb = checkboxes[i];
+
+      if (cb.checked) {
+        classes.push(cb.getAttribute("rel"));
+      }
+    }
+  }
+
+  return classes;
+}
+
+function filterResults(filters) {
+  var rElems = document.querySelectorAll(".result div");
+  var hiddenElems = [];
+
+  if (!rElems || rElems.length <= 0) {
+    return;
+  }
+
+  for (var i = 0; i < rElems.length; i++) {
+    var el = rElems[i];
+
+    if (filters.options.length > 0) {
+      var isHidden = true;
+
+      for (var j = 0; j < filters.options.length; j++) {
+        var filter = filters.options[j];
+
+        if (el.classList.contains(filter)) {
+          isHidden = false;
+          break;
+        }
+      }
+
+      if (isHidden) {
+        hiddenElems.push(el);
+      }
+    }
+
+    if (filters.types.length > 0) {
+      var isHidden = true;
+
+      for (var j = 0; j < filters.types.length; j++) {
+        var filter = filters.types[j];
+
+        if (el.classList.contains(filter)) {
+          isHidden = false;
+          break;
+        }
+      }
+
+      if (isHidden) {
+        hiddenElems.push(el);
+      }
+    }
+
+    if (filters.years.length > 0) {
+      var isHidden = true;
+
+      for (var j = 0; j < filters.years.length; j++) {
+        var filter = filters.years[j];
+
+        if (el.classList.contains(filter)) {
+          isHidden = false;
+          break;
+        }
+      }
+
+      if (isHidden) {
+        hiddenElems.push(el);
+      }
+    }
+  }
+
+  for (var i = 0; i < rElems.length; i++) {
+    rElems[i].style.display = "block";
+  }
+
+  if (hiddenElems.length <= 0) {
+    return;
+  }
+
+  for (var i = 0; i < hiddenElems.length; i++) {
+    hiddenElems[i].style.display = "none";
+  }
+}
+$("#UncheckAll").click(function(){
+    $("input[type='checkbox']").prop('checked',false);
+});
+
+
+$("#CheckAll").click(function(){
+    $(".types input[type='checkbox']").prop('checked',true);
+})
+
+</script>
+</Body>
+</HTML>
